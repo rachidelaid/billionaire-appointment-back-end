@@ -1,5 +1,5 @@
 class Api::BillionairesController < ApplicationController
-  before_action :set_billionaire, only: %i[ show update destroy ]
+  before_action :set_billionaire, only: %i[show update destroy]
 
   # GET /billionaires
   def index
@@ -39,13 +39,14 @@ class Api::BillionairesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_billionaire
-      @billionaire = Billionaire.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def billionaire_params
-      params.require(:billionaire).permit(:name, :title, :image, :price, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_billionaire
+    @billionaire = Billionaire.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def billionaire_params
+    params.require(:billionaire).permit(:name, :title, :image, :price, :description)
+  end
 end
