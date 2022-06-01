@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  resources :billionaires
   devise_for :users
-  resources :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  namespace :api, defaults: { format: 'json' } do
+    resources :users
+    resources :billionaires
+    resources :users
+  end
 end
