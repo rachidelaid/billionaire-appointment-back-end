@@ -6,8 +6,8 @@ class User < ApplicationRecord
 
   has_many :appointments, dependent: :destroy
 
-  validates :name, presence: true, length: {maximum: 200}
-  validates :username, presence: true, length: {maximum: 20}
+  validates :name, presence: true, length: { maximum: 200 }
+  validates :username, presence: true, length: { maximum: 20 }
   validates :email, presence: true
   validates :password, presence: true
 end
