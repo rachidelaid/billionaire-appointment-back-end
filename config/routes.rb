@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  use_doorkeeper
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   # devise_for :users
@@ -8,5 +7,9 @@ Rails.application.routes.draw do
     resources :users
     resources :billionaires
     resources :appointments
+  end
+
+  use_doorkeeper do
+    skip_controllers :authorizations, :applications, :authorized_applications
   end
 end
