@@ -1,4 +1,5 @@
 class Api::UsersController < ApplicationController
+  before_action :authenticate_user!, except: [:create]
   before_action :set_user, only: %i[show update destroy]
 
   # GET /users
