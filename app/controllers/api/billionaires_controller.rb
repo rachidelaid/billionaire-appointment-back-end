@@ -48,6 +48,7 @@ class Api::BillionairesController < ApplicationController
   # DELETE /billionaires/1
   def destroy
     @billionaire.destroy
+    render json: "\"Billionaire deleted successfully\"", status: :ok
   end
 
   private
