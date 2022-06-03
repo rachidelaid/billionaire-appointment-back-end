@@ -1,5 +1,5 @@
 class Api::BillionairesController < ApplicationController
-  before_action :doorkeeper_authorize!
+  before_action :doorkeeper_authorize!, except: [:index]
   before_action :set_billionaire, only: %i[show update destroy]
 
   # GET /billionaires
