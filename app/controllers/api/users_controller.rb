@@ -30,7 +30,7 @@ class Api::UsersController < ApplicationController
           refresh_token: access_token.refresh_token,
           created_at: access_token.created_at.to_time.to_i
         }
-      })
+      }, status: :created)
     else
       render(json: { error: user.errors.full_messages }, status: 422)
     end

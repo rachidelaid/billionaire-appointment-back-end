@@ -1,48 +1,63 @@
 require 'rails_helper'
 
 RSpec.describe '/users', type: :request do
-  let(:valid_attributes) do
-    skip('Add a hash of attributes valid for your model')
-  end
-
-  let(:invalid_attributes) do
-    skip('Add a hash of attributes invalid for your model')
-  end
-  
-  let(:valid_headers) do
-    {}
-  end
+  let(:application) { FactoryBot.create(:application) }
 
   describe 'POST /create' do
     context 'with valid parameters' do
       it 'creates a new User' do
         expect do
-          post users_url,
-               params: { user: valid_attributes }, headers: valid_headers, as: :json
+          post api_users_path,
+              params: {
+                name: "rachid",
+                username: "rachidelaid",
+                email: "rachid@test.com",
+                password: "123456789",
+                client_id: application.uid,
+              }
         end.to change(User, :count).by(1)
       end
 
       it 'renders a JSON response with the new user' do
-        post users_url,
-             params: { user: valid_attributes }, headers: valid_headers, as: :json
+        post api_users_path,
+            params: { 
+              name: "rachid",
+              username: "rachidelaid",
+              email: "rachid@test.com",
+              password: "123456789",
+              client_id: application.uid,
+            }
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new User' do
-        expect do
-          post users_url,
-               params: { user: invalid_attributes }, as: :json
-        end.to change(User, :count).by(0)
+      it 'does not create a new User without client_id' do
+        post api_users_path,
+              params: {
+                name: "rachid",
+                username: "rachidelaid",
+                email: "rachid@test.com",
+                password: "123456789",
+              }
+        expect(response).to have_http_status(403)
+        expect(response.body).to include("Invalid client ID")
+        expect(User.count).to eq(0)
       end
 
-      it 'renders a JSON response with errors for the new user' do
-        post users_url,
-             params: { user: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including('application/json'))
+      it 'does not create a new User with an invalid email' do
+        post api_users_path,
+              params: {
+                name: "rachid",
+                username: "rachidelaid",
+                email: "bad_email",
+                password: "123456789",
+                client_id: application.uid,
+              }
+        expect(response).to have_http_status(422)
+        expect(response.body).to include("Email is invalid")
+        expect(User.count).to eq(0)
       end
     end
   end
