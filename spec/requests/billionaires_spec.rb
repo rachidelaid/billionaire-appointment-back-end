@@ -8,17 +8,14 @@ require 'rails_helper'
 
 # let(:invalid_attributes) { invalid_purchase.attributes }
 
-
 RSpec.describe '/billionaires', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Billionaire. As you add validations to Billionaire, be sure to
   # adjust the attributes here as well.
-  let(:valid_billionaire) {build :billionaire}
-  let(:valid_attributes) {valid_billionaire.attributes}
-  let(:invalid_billionaire) {build :billionaire, name: nil}
-  let(:invalid_attributes) {invalid_billionaire.attributes}
-  
-  
+  let(:valid_billionaire) { build :billionaire }
+  let(:valid_attributes) { valid_billionaire.attributes }
+  let(:invalid_billionaire) { build :billionaire, name: nil }
+  let(:invalid_attributes) { invalid_billionaire.attributes }
 
   describe 'GET /index' do
     it 'renders a successful response' do
@@ -35,5 +32,4 @@ RSpec.describe '/billionaires', type: :request do
       expect(response).to be_successful
     end
   end
-
 end
