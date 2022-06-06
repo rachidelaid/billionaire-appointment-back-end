@@ -16,7 +16,7 @@ class Api::BillionairesController < ApplicationController
 
   # POST /billionaires
   def create
-    if current_user.role == 'adming'
+    if current_user.role == 'admin'
       @billionaire = Billionaire.new(billionaire_params)
 
       if @billionaire.save
