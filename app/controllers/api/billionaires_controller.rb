@@ -16,24 +16,16 @@ class Api::BillionairesController < ApplicationController
 
   # POST /billionaires
   def create
-    name = params[:name]
-    title = params[:title]
-    image = params[:image]
-    price = params[:price]
-    description = params[:description]
+    if current_user.role == 'adming'
+      @billionaire = Billionaire.new(billionaire_params)
 
-    @billionaire = Billionaire.new(
-      name: name,
-      title: title,
-      image: image,
-      price: price,
-      description: description
-    )
-
-    if @billionaire.save
-      render json: @billionaire, status: :created
+      if @billionaire.save
+        render json: @billionaire, status: :created
+      else
+        render json: @billionaire.errors, status: :unprocessable_entity
+      end
     else
-      render json: @billionaire.errors, status: :unprocessable_entity
+      render json: @billionaire.errors, status: :unauthorized
     end
   end
 
