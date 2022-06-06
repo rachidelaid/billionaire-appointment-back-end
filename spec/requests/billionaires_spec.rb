@@ -12,10 +12,22 @@ RSpec.describe '/billionaires', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Billionaire. As you add validations to Billionaire, be sure to
   # adjust the attributes here as well.
+
   let(:valid_billionaire) { build :billionaire }
   let(:valid_attributes) { valid_billionaire.attributes }
   let(:invalid_billionaire) { build :billionaire, name: nil }
   let(:invalid_attributes) { invalid_billionaire.attributes }
+
+  let(:application) { FactoryBot.create(:application) }
+  let(:current_user) { FactoryBot.create(:user, role: 'admin') }
+  let(:access_token) { FactoryBot.create(:access_token, application:, resource_owner_id: current_user.id) }
+
+  let(:valid_headers) do
+    { Authorization: "Bearer #{access_token.token}" }
+  end
+  let(:invalid_headers) do
+    {}
+  end
 
   describe 'GET /index' do
     it 'renders a successful response' do
@@ -30,6 +42,49 @@ RSpec.describe '/billionaires', type: :request do
       valid_billionaire.save
       get api_billionaire_url(valid_billionaire), as: :json
       expect(response).to be_successful
+    end
+  end
+
+  describe 'POST /create' do
+    context 'with valid parameters and admin user' do
+      it 'creates a new Billionaire' do
+        post api_billionaires_url,
+             params: { billionaire: valid_attributes },
+             headers: valid_headers,
+             as: :json
+        expect(response).to have_http_status(:created)
+      end
+    end
+
+    context 'with admin user but invalid parameters' do
+      it 'can not create a Billionaire' do
+        post api_billionaires_url,
+             params: { billionaire: invalid_attributes },
+             headers: valid_headers,
+             as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'without authorization token token' do
+      it 'does not allow the creation' do
+        post api_billionaires_url,
+             params: { billionaire: valid_attributes },
+             headers: invalid_headers,
+             as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'with valid parameters but not admin user' do
+      let(:current_user) { FactoryBot.create(:user) }
+      it 'does not allow the creation' do
+        post api_billionaires_url,
+             params: { billionaire: valid_attributes },
+             headers: valid_headers,
+             as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
     end
   end
 end
