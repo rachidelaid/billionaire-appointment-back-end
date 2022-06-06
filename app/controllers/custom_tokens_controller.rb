@@ -3,12 +3,24 @@ class CustomTokensController < Doorkeeper::TokensController
 
   def create
     headers.merge!(authorize_response.headers)
-    body = authorize_response.body
-    user = User.find_by(id: Doorkeeper::AccessToken.find_by(token: body['access_token']).resource_owner_id)
-
-    render json: { token: body, user: },
-           status: authorize_response.status
-  rescue Errors::DoorkeeperError => e
+    
+    response = createResponse(authorize_response.body)
+    render json: response, status: authorize_response.status
+  rescue Doorkeeper::Errors => e
     handle_token_exception(e)
+  end
+
+  private
+  def createResponse(response)
+    if response[:error].to_s == "invalid_client"
+      return { error: "invalid client id or secret" }
+    end
+
+    if response[:error].to_s == "invalid_grant"
+      return { error: "wrong email or password" }
+    end
+
+    user = User.find_by(id: Doorkeeper::AccessToken.find_by(token: response['access_token']).resource_owner_id)
+    return { token: response, user: }
   end
 end
