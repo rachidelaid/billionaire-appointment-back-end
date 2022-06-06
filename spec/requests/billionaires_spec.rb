@@ -107,6 +107,14 @@ RSpec.describe '/billionaires', type: :request do
       end
     end
 
+    context 'when there is no authorization token' do
+      it 'can not destroy billionaire' do
+        billionaire = Billionaire.create! valid_attributes
+        delete api_billionaire_path(billionaire), headers: invalid_headers, as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
 
   end
 end
