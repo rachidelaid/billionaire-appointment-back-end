@@ -66,3 +66,11 @@ Billionaire.create(
     price: 3120,
     image: 'https://github.com/orozCoding/billionares-pictures/blob/main/round_pictures/pc_bill.png?raw=true',
     description: 'Billgates is an American business magnate, software developer, investor, author, and philanthropist. He is a co-founder of Microsoft, along with his late childhood friend Paul Allen. During his career at Microsoft, Gates held the positions of chairman, chief executive officer (CEO), president and chief software architect, while also being the largest individual shareholder until May 2014. He was a major entrepreneur of the microcomputer revolution of the 1970s and 1980s.')
+
+  # create an OAuth application if there isn't one
+  if Doorkeeper::Application.count.zero?
+    Doorkeeper::Application.create(name: "Web client", redirect_uri: "", scopes: "", uid: "5HQ7dTk0E19iqnVKOq54AS9q5R97-dyNw3vdnhXBpos", secret: "RhEkeazVmLeVqoD97lanUFbv2lhEMKRVX9UDE3oTH7c")
+  end
+
+  User.first_or_create(username:"rachidelaid",name:"rachid", email:"admin@test.com", password:"test123", role:"admin")
+  

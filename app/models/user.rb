@@ -10,4 +10,10 @@ class User < ApplicationRecord
   validates :username, presence: true, length: { maximum: 20 }
   validates :email, presence: true
   validates :password, presence: true
+
+  # the authenticate method from devise documentation
+  def self.authenticate(email, password)
+    user = User.find_for_authentication(email:)
+    user&.valid_password?(password) ? user : nil
+  end
 end

@@ -55,6 +55,7 @@ end
 
 gem 'bullet'
 gem 'devise'
+gem 'doorkeeper'
 gem 'ffi'
 gem 'jwt'
 gem 'rack-cors'
