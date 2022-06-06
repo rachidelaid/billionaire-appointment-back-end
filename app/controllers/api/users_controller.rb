@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
 
     client_app = Doorkeeper::Application.find_by(uid: params[:client_id])
 
-    return render(json: { error: 'Invalid client ID'}, status: 403) unless client_app
+    return render(json: { error: 'Invalid client ID' }, status: 403) unless client_app
 
     if user.save
       # create access token for the user, so the user won't need to login again after registration
@@ -15,22 +15,22 @@ class Api::UsersController < ApplicationController
         expires_in: Doorkeeper.configuration.access_token_expires_in.to_i,
         scopes: ''
       )
-      
+
       # return json containing access token and refresh token
       # so that user won't need to call login API right after registration
       render(json: {
-        user: {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          role: user.role,
-          access_token: access_token.token,
-          token_type: 'Bearer',
-          expires_in: access_token.expires_in,
-          refresh_token: access_token.refresh_token,
-          created_at: access_token.created_at.to_time.to_i
-        }
-      }, status: :created)
+               user: {
+                 id: user.id,
+                 username: user.username,
+                 email: user.email,
+                 role: user.role,
+                 access_token: access_token.token,
+                 token_type: 'Bearer',
+                 expires_in: access_token.expires_in,
+                 refresh_token: access_token.refresh_token,
+                 created_at: access_token.created_at.to_time.to_i
+               }
+             }, status: :created)
     else
       render(json: { error: user.errors.full_messages }, status: 422)
     end
@@ -40,15 +40,15 @@ class Api::UsersController < ApplicationController
 
   def generate_refresh_token
     loop do
-      # generate a random token string and return it, 
+      # generate a random token string and return it,
       # unless there is already another token with the same string
       token = SecureRandom.hex(32)
       break token unless Doorkeeper::AccessToken.exists?(refresh_token: token)
     end
-  end 
+  end
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.permit(:username, :email, :name, :role, :password)
+    params.permit(:username, :email, :name, :password)
   end
 end

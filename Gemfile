@@ -55,10 +55,10 @@ end
 
 gem 'bullet'
 gem 'devise'
+gem 'doorkeeper'
 gem 'ffi'
 gem 'jwt'
 gem 'rack-cors'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'rubocop'
-gem 'doorkeeper'

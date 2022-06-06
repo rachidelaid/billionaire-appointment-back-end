@@ -69,7 +69,7 @@ Billionaire.create(
 
   # create an OAuth application if there isn't one
   if Doorkeeper::Application.count.zero?
-    Doorkeeper::Application.create(name: "Web client", redirect_uri: "", scopes: "")
+    Doorkeeper::Application.create(name: "Web client", redirect_uri: "", scopes: "", uid: "5HQ7dTk0E19iqnVKOq54AS9q5R97-dyNw3vdnhXBpos", secret: "RhEkeazVmLeVqoD97lanUFbv2lhEMKRVX9UDE3oTH7c")
   end
 
   User.first_or_create(username:"rachidelaid",name:"rachid", email:"admin@test.com", password:"test123", role:"admin")

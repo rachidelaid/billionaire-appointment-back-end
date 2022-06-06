@@ -8,14 +8,14 @@ RSpec.describe '/oauth/token', type: :request do
 
     it 'succeeds' do
       post '/oauth/token', params: {
-        grant_type: "password",
+        grant_type: 'password',
         email: user.email,
         password: user.password,
         client_id: application.uid,
         client_secret: application.secret
       }
       expect(response).to be_successful
-      expect(response.body).to include("token")
+      expect(response.body).to include('token')
       expect(response.body).to include(user.to_json)
     end
   end
