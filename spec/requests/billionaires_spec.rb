@@ -27,6 +27,9 @@ RSpec.describe '/billionaires', type: :request do
   let(:valid_headers) do
     {"Authorization": "Bearer #{access_token.token}"}
   end
+  let(:invalid_headers) do
+    {}
+  end
 
   describe 'GET /index' do
     it 'renders a successful response' do
@@ -45,14 +48,37 @@ RSpec.describe '/billionaires', type: :request do
   end
 
   describe 'POST /create' do
-    context 'with valid parameters' do
+
+    context 'with valid parameters and admin user' do
       it 'creates a new Billionaire' do
-      post api_billionaires_url,
-            params: { billionaire: valid_attributes },
-            headers: valid_headers,
-            as: :json
+        post api_billionaires_url,
+              params: { billionaire: valid_attributes },
+              headers: valid_headers,
+              as: :json
         expect(response).to have_http_status(:created)
       end
     end
+    
+    context 'withuot authorization token token' do
+      it 'does not allow the creation' do
+        post api_billionaires_url,
+        params: { billionaire: valid_attributes },
+        headers: invalid_headers,
+        as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'with valid parameters but not admin user' do
+      let(:current_user) { FactoryBot.create(:user) }
+      it 'does not allow the creation' do
+        post api_billionaires_url,
+        params: { billionaire: valid_attributes },
+        headers: valid_headers,
+        as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
   end
 end
