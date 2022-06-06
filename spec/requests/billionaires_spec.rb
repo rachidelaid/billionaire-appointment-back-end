@@ -58,8 +58,18 @@ RSpec.describe '/billionaires', type: :request do
         expect(response).to have_http_status(:created)
       end
     end
+
+    context 'with admin user but invalid parameters' do
+      it 'can not create a Billionaire' do
+        post api_billionaires_url,
+              params: { billionaire: invalid_attributes },
+              headers: valid_headers,
+              as: :json
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
     
-    context 'withuot authorization token token' do
+    context 'without authorization token token' do
       it 'does not allow the creation' do
         post api_billionaires_url,
         params: { billionaire: valid_attributes },
