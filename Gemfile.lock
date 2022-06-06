@@ -89,6 +89,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
     digest (3.1.0)
+    doorkeeper (5.5.4)
+      railties (>= 5)
     erubi (1.10.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -251,6 +253,7 @@ DEPENDENCIES
   bullet
   debug
   devise
+  doorkeeper
   factory_bot_rails
   ffi
   jwt
