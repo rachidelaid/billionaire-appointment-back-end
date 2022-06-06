@@ -42,7 +42,7 @@ class Api::BillionairesController < ApplicationController
   def destroy
     if current_user.role == 'admin'
       @billionaire.destroy
-      render json: "\"Billionaire deleted successfully\"", status: :ok
+      render json: '"Billionaire deleted successfully"', status: :ok
     else
       render json: "\"You're not allowed to delete billionaires\"", status: :unauthorized
     end
