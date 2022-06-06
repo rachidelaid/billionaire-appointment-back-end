@@ -97,5 +97,16 @@ RSpec.describe '/billionaires', type: :request do
         end.to change(Billionaire, :count).by(-1)
       end
     end
+
+    context 'when user is not admin' do
+      let(:current_user) { FactoryBot.create(:user) }
+      it 'can not destroy billionaire' do
+        billionaire = Billionaire.create! valid_attributes
+        delete api_billionaire_path(billionaire), headers: valid_headers, as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+
   end
 end

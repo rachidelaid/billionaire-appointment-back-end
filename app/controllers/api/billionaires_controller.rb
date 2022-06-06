@@ -44,7 +44,7 @@ class Api::BillionairesController < ApplicationController
       @billionaire.destroy
       render json: "\"Billionaire deleted successfully\"", status: :ok
     else
-      ender json: "\"You're not allowed to delete billionaires\"", status: :unauthorized
+      render json: "\"You're not allowed to delete billionaires\"", status: :unauthorized
     end
   end
 
