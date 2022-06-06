@@ -87,4 +87,15 @@ RSpec.describe '/billionaires', type: :request do
       end
     end
   end
+
+  describe 'DELETE /destroy' do
+    context 'when user is admin and header is valid' do
+      it 'destroys the requested billionaire if user is admin and with valid header' do
+        billionaire = Billionaire.create! valid_attributes
+        expect do
+          delete api_billionaire_path(billionaire), headers: valid_headers, as: :json
+        end.to change(Billionaire, :count).by(-1)
+      end
+    end
+  end
 end

@@ -40,7 +40,7 @@ class Api::BillionairesController < ApplicationController
 
   # DELETE /billionaires/1
   def destroy
-    if current_user.role == 'admin' do
+    if current_user.role == 'admin'
       @billionaire.destroy
       render json: "\"Billionaire deleted successfully\"", status: :ok
     else
