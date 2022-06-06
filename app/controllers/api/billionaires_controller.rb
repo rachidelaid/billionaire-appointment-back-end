@@ -16,19 +16,8 @@ class Api::BillionairesController < ApplicationController
 
   # POST /billionaires
   def create
-    name = params[:name]
-    title = params[:title]
-    image = params[:image]
-    price = params[:price]
-    description = params[:description]
 
-    @billionaire = Billionaire.new(
-      name: name,
-      title: title,
-      image: image,
-      price: price,
-      description: description
-    )
+    @billionaire = Billionaire.new(billionaire_params)
 
     if @billionaire.save
       render json: @billionaire, status: :created
