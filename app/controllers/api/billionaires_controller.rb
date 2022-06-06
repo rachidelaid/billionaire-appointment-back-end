@@ -25,7 +25,7 @@ class Api::BillionairesController < ApplicationController
         render json: @billionaire.errors, status: :unprocessable_entity
       end
     else
-      render json: "\"You're not allowed to create billionaires\"" , status: :unauthorized
+      render json: "\"You're not allowed to create billionaires\"", status: :unauthorized
     end
   end
 
