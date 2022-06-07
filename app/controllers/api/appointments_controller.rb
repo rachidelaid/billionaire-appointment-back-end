@@ -1,4 +1,5 @@
-class API::AppointmentsController < ApplicationController
+class Api::AppointmentsController < ApplicationController
+  before_action :doorkeeper_authorize!
   before_action :set_appointment, only: %i[show update destroy]
 
   # GET /appointments
@@ -8,26 +9,12 @@ class API::AppointmentsController < ApplicationController
     render json: @appointments
   end
 
-  # GET /appointments/1
-  def show
-    render json: @appointment
-  end
-
   # POST /appointments
   def create
     @appointment = Appointment.new(appointment_params)
 
     if @appointment.save
-      render json: @appointment, status: :created, location: @appointment
-    else
-      render json: @appointment.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /appointments/1
-  def update
-    if @appointment.update(appointment_params)
-      render json: @appointment
+      render json: @appointment, status: :created
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
