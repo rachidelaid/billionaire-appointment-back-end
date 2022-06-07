@@ -87,4 +87,32 @@ RSpec.describe '/billionaires', type: :request do
       end
     end
   end
+
+  describe 'DELETE /destroy' do
+    context 'when user is admin and header is valid' do
+      it 'destroys the requested billionaire if user is admin and with valid header' do
+        billionaire = Billionaire.create! valid_attributes
+        expect do
+          delete api_billionaire_path(billionaire), headers: valid_headers, as: :json
+        end.to change(Billionaire, :count).by(-1)
+      end
+    end
+
+    context 'when user is not admin' do
+      let(:current_user) { FactoryBot.create(:user) }
+      it 'can not destroy billionaire' do
+        billionaire = Billionaire.create! valid_attributes
+        delete api_billionaire_path(billionaire), headers: valid_headers, as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when there is no authorization token' do
+      it 'can not destroy billionaire' do
+        billionaire = Billionaire.create! valid_attributes
+        delete api_billionaire_path(billionaire), headers: invalid_headers, as: :json
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
 end
