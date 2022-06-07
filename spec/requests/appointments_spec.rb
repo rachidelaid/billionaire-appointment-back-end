@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe '/appointments', type: :request do
-
   User.destroy_all
   Billionaire.destroy_all
   let(:user) { FactoryBot.create(:user) }
   let(:billionaire) { FactoryBot.create(:billionaire) }
   let(:application) { FactoryBot.create(:application) }
-  let(:access_token) { FactoryBot.create(:access_token, application: application, resource_owner_id: user.id) }
+  let(:access_token) { FactoryBot.create(:access_token, application:, resource_owner_id: user.id) }
 
   let(:valid_attributes) do
     { city: 'City', date: '2022-01-01', user_id: user.id, billionaire_id: billionaire.id }
@@ -18,7 +17,7 @@ RSpec.describe '/appointments', type: :request do
   end
 
   let(:valid_headers) do
-    { Authorization: "Bearer #{access_token.token}"}
+    { Authorization: "Bearer #{access_token.token}" }
   end
 
   describe 'GET /index' do
