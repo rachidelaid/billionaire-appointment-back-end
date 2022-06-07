@@ -1,15 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe '/appointments', type: :request do
-  before :example do
-    User.destroy_all
-    Billionaire.destroy_all
-    @user = FactoryBot.create(:user)
-    @billionaire = FactoryBot.create(:billionaire)
-  end
+
+  User.destroy_all
+  Billionaire.destroy_all
+  let(:user) { FactoryBot.create(:user) }
+  let(:billionaire) { FactoryBot.create(:billionaire) }
+  let(:application) { FactoryBot.create(:application) }
+  let(:access_token) { FactoryBot.create(:access_token, application: application, resource_owner_id: user.id) }
 
   let(:valid_attributes) do
-    { city: 'City', date: '2022-01-01', user_id: @user.id, billionaire_id: @billionaire.id }
+    { city: 'City', date: '2022-01-01', user_id: user.id, billionaire_id: billionaire.id }
   end
 
   let(:invalid_attributes) do
@@ -17,21 +18,13 @@ RSpec.describe '/appointments', type: :request do
   end
 
   let(:valid_headers) do
-    {}
+    { Authorization: "Bearer #{access_token.token}"}
   end
 
   describe 'GET /index' do
     it 'renders a successful response' do
       Appointment.create! valid_attributes
       get api_appointments_path, headers: valid_headers, as: :json
-      expect(response).to be_successful
-    end
-  end
-
-  describe 'GET /show' do
-    it 'renders a successful response' do
-      appointment = Appointment.create! valid_attributes
-      get api_appointment_path(appointment), as: :json
       expect(response).to be_successful
     end
   end
@@ -64,40 +57,6 @@ RSpec.describe '/appointments', type: :request do
       it 'renders a JSON response with errors for the new appointment' do
         post api_appointments_path,
              params: { appointment: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.content_type).to match(a_string_including('application/json'))
-      end
-    end
-  end
-
-  describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) do
-        { city: 'London' }
-      end
-
-      it 'updates the requested appointment' do
-        appointment = Appointment.create! valid_attributes
-        patch api_appointment_path(appointment),
-              params: { appointment: new_attributes }, headers: valid_headers, as: :json
-        appointment.reload
-        expect(appointment.city).to eq('London')
-      end
-
-      it 'renders a JSON response with the appointment' do
-        appointment = Appointment.create! valid_attributes
-        patch api_appointment_path(appointment),
-              params: { appointment: new_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:ok)
-        expect(response.content_type).to match(a_string_including('application/json'))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it 'renders a JSON response with errors for the appointment' do
-        appointment = Appointment.create! valid_attributes
-        patch api_appointment_path(appointment),
-              params: { appointment: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
