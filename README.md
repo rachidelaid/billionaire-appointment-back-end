@@ -36,6 +36,7 @@ Follow [this link](https://github.com/rachidelaid/billionaire-appointment-back-e
 - Run `rails db:create`
 - Run `rails db:migrate`
 - Run `rails db:seed`
+- Run `rails start` to start the server
 
 This is an API only app. Use the [Front-end repository](https://github.com/rachidelaid/billionaire-appointment-front-end) for an user interface.
 
