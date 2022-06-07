@@ -16,12 +16,16 @@ class Api::BillionairesController < ApplicationController
 
   # POST /billionaires
   def create
-    @billionaire = Billionaire.new(billionaire_params)
+    if current_user.role == 'admin'
+      @billionaire = Billionaire.new(billionaire_params)
 
-    if @billionaire.save
-      render json: @billionaire, status: :created, location: @billionaire
+      if @billionaire.save
+        render json: @billionaire, status: :created
+      else
+        render json: @billionaire.errors, status: :unprocessable_entity
+      end
     else
-      render json: @billionaire.errors, status: :unprocessable_entity
+      render json: "\"You're not allowed to create billionaires\"", status: :unauthorized
     end
   end
 
