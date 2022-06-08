@@ -4,7 +4,7 @@ class Api::AppointmentsController < ApplicationController
 
   # GET /appointments
   def index
-    @appointments = Appointment.where(user_id: current_user.id)
+    @appointments = Appointment.where(user_id: current_user.id).order(:date)
 
     render json: @appointments
   end
