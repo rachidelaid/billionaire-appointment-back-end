@@ -4,7 +4,7 @@ class Api::AppointmentsController < ApplicationController
 
   # GET /appointments
   def index
-    @appointments = Appointment.all
+    @appointments = Appointment.where(user_id: current_user.id)
 
     render json: @appointments
   end
@@ -22,7 +22,7 @@ class Api::AppointmentsController < ApplicationController
 
   # DELETE /appointments/1
   def destroy
-    @appointment.destroy
+    render json: 'Appointment deleted successfully', status: :ok if @appointment.destroy
   end
 
   private
