@@ -29,7 +29,6 @@ RSpec.describe '/api/billionaires', type: :request do
       tags 'Billionaires'
       consumes 'application/json'
       security [{ bearerAuth: [] }]
-      # parameter name: :Authorization, in: :header, type: :string, required: true
       parameter name: :billionaire, in: :body, schema: {
         type: :object,
         properties: {
@@ -42,7 +41,7 @@ RSpec.describe '/api/billionaires', type: :request do
         required: [ 'name', 'title', 'image', 'price', 'description' ]
       }
 
-      response '201', 'blog created' do
+      response '201', 'billionaire created' do
         let(:billionaire) { { 
           name: 'Bill Gates',
           title: 'Co-founder of Microsoft',
