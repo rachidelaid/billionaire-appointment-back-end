@@ -1,0 +1,134 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+paths:
+  "/api/billionaires":
+    get:
+      summary: Retrieves all billionaires
+      tags:
+      - Billionaires
+      responses:
+        '200':
+          description: list of billionaires
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    title:
+                      type: string
+                    image:
+                      type: string
+                    price:
+                      type: number
+                      format: float
+                    description:
+                      type: string
+                    created_at:
+                      format: date-time
+                    updated_at:
+                      format: date-time
+    post:
+      summary: Creates a billionaire
+      tags:
+      - Billionaires
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '201':
+          description: blog created
+        '422':
+          description: invalid request
+        '401':
+          description: unauthorized request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                title:
+                  type: string
+                image:
+                  type: string
+                price:
+                  type: number
+                  format: float
+                description:
+                  type: string
+              required:
+              - name
+              - title
+              - image
+              - price
+              - description
+  "/api/billionaires/{id}":
+    get:
+      summary: Retrieves a billionaire
+      tags:
+      - Billionaires
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: a billionaire
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  title:
+                    type: string
+                  image:
+                    type: string
+                  price:
+                    type: number
+                    format: float
+                  description:
+                    type: string
+                  created_at:
+                    format: date-time
+                  updated_at:
+                    format: date-time
+    delete:
+      summary: Deletes a billionaire
+      tags:
+      - Billionaires
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: billionaire deleted
+        '401':
+          description: unauthorized request
+servers:
+- url: "{defaultHost}"
+  variables:
+    defaultHost:
+      default: http://localhost:3000
