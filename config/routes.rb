@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     resources :users, only: :create
     resources :billionaires, except: :update
-    resources :appointments
+    resources :appointments, except: :update
   end
 
   use_doorkeeper do
