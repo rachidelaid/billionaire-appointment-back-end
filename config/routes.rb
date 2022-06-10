@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # devise_for :users
   
   namespace :api, defaults: { format: 'json' } do
-    resources :users
+    resources :users, only: :create
     resources :billionaires, except: [:update]
     resources :appointments
   end
