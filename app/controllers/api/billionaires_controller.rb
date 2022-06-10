@@ -29,15 +29,6 @@ class Api::BillionairesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /billionaires/1
-  def update
-    if @billionaire.update(billionaire_params)
-      render json: @billionaire
-    else
-      render json: @billionaire.errors, status: :unprocessable_entity
-    end
-  end
-
   # DELETE /billionaires/1
   def destroy
     if current_user.role == 'admin'
