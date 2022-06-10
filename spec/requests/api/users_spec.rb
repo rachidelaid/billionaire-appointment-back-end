@@ -103,14 +103,15 @@ RSpec.describe '/api/users', type: :request do
                }
 
         let(:application) { FactoryBot.create(:application) }
-        let (:logged_in_user){create(:user)}
+        let(:logged_in_user) { create(:user) }
         let(:user) do
-          { 
+          {
             username: logged_in_user.username,
             password: logged_in_user.password,
             client_id: application.uid,
             client_secret: application.secret,
-            grant_type: 'password' }
+            grant_type: 'password'
+          }
         end
         run_test!
       end

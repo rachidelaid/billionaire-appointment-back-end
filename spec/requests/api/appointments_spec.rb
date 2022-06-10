@@ -25,7 +25,7 @@ RSpec.describe '/api/appointments', type: :request do
       end
 
       response '401', 'unauthorized request' do
-        let(:appointment) {{city: 'New York'}}
+        let(:appointment) { { city: 'New York' } }
         let(:Authorization) { 'invalid' }
         run_test!
       end
