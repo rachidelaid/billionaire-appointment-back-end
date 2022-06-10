@@ -4,7 +4,7 @@ class Api::BillionairesController < ApplicationController
 
   # GET /billionaires
   def index
-    @billionaires = Billionaire.all
+    @billionaires = Billionaire.order(created_at: :DESC)
 
     render json: @billionaires
   end
