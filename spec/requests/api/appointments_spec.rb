@@ -24,9 +24,11 @@ RSpec.describe '/api/appointments', type: :request do
         run_test!
       end
 
-      # response '401', 'unauthorized request' do
-      #   run_test!
-      # end
+      response '401', 'unauthorized request' do
+        let(:appointment) {{city: 'New York'}}
+        let(:Authorization) { 'invalid' }
+        run_test!
+      end
     end
 
     post 'Creates an appointment' do

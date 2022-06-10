@@ -108,7 +108,6 @@ RSpec.describe '/api/users', type: :request do
           { 
             username: logged_in_user.username,
             password: logged_in_user.password,
-            **logged_in_user.attributes,
             client_id: application.uid,
             client_secret: application.secret,
             grant_type: 'password' }
