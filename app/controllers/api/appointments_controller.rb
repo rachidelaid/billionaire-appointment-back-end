@@ -34,6 +34,8 @@ class Api::AppointmentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def appointment_params
-    params.require(:appointment).permit(:city, :date, :user_id, :billionaire_id)
+    parameters = params.require(:appointment).permit(:city, :date, :billionaire_id)
+    parameters[:user_id] = current_user.id
+    parameters
   end
 end
