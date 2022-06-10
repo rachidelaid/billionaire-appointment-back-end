@@ -22,7 +22,11 @@ class Api::AppointmentsController < ApplicationController
   # DELETE /appointments/1
   def destroy
     @appointment = Appointment.find(params[:id])
+
     render json: 'Appointment deleted successfully', status: :ok if @appointment.destroy
+
+  rescue ActiveRecord::RecordNotFound => e
+    render json: e, status: :bad_request
   end
 
   private
