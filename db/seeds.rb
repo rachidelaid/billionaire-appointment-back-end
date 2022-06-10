@@ -18,12 +18,6 @@ Billionaire.create(
   price: 2650,
   image: 'https://raw.githubusercontent.com/orozCoding/billionares-pictures/main/round_pictures/pc_jeff.png',
   description: "Jeff Bezos is an American entrepreneur, media proprietor, investor, computer engineer, and commercial astronaut. He is the founder, executive chairman and former president and CEO of Amazon. With a net worth of around US$140 billion as of May 2022, Bezos is the second-wealthiest person in the world and was the wealthiest from 2017 to 2021 according to both Bloomberg's Billionaires Index and Forbes.")
-Billionaire.create(
-  name: 'Ariel Camus',
-  title: 'Founder & CEO at Microverse',
-  price: 4350,
-  image: "https://raw.githubusercontent.com/orozCoding/billionares-pictures/main/round_pictures/pc_ariel.png",
-  description: "The Argentine-born has founded multiple projects, including the one where is currently CEO: Microverse, a school that enables job-opportunities for talent around the world. Ariel has lived and worked in 7 different countries including Spain, Argentina, USA, and Vietnam and has been coding since he was 12. He previously founded Tourist Eye, a travel app with 1MM+ users acquired by Lonely Planet.")
   Billionaire.create(
   name: 'Julia Koch', 
   title: 'President of David H. Koch Foundation', 
@@ -66,7 +60,12 @@ Billionaire.create(
     price: 3120,
     image: 'https://github.com/orozCoding/billionares-pictures/blob/main/round_pictures/pc_bill.png?raw=true',
     description: 'Billgates is an American business magnate, software developer, investor, author, and philanthropist. He is a co-founder of Microsoft, along with his late childhood friend Paul Allen. During his career at Microsoft, Gates held the positions of chairman, chief executive officer (CEO), president and chief software architect, while also being the largest individual shareholder until May 2014. He was a major entrepreneur of the microcomputer revolution of the 1970s and 1980s.')
-
+    Billionaire.create(
+      name: 'Ariel Camus',
+      title: 'Founder & CEO at Microverse',
+      price: 4350,
+      image: "https://raw.githubusercontent.com/orozCoding/billionares-pictures/main/round_pictures/pc_ariel.png",
+      description: "The Argentine-born has founded multiple projects, including the one where is currently CEO: Microverse, a school that enables job-opportunities for talent around the world. Ariel has lived and worked in 7 different countries including Spain, Argentina, USA, and Vietnam and has been coding since he was 12. He previously founded Tourist Eye, a travel app with 1MM+ users acquired by Lonely Planet.")
   # create an OAuth application if there isn't one
   if Doorkeeper::Application.count.zero?
     Doorkeeper::Application.create(name: "Web client", redirect_uri: "", scopes: "", uid: "5HQ7dTk0E19iqnVKOq54AS9q5R97-dyNw3vdnhXBpos", secret: "RhEkeazVmLeVqoD97lanUFbv2lhEMKRVX9UDE3oTH7c")
