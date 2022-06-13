@@ -12,7 +12,8 @@ Coming soon...
 
 ## Live version
 
-Coming soon...  
+[App (Front-end)](https://billionaire-appointment.netlify.app/)
+[Back-end](https://billionaire-back-end.herokuapp.com/)
 
 ## Built With
 - Ruby on Rails
