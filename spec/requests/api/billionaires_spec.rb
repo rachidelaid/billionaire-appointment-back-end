@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'swagger_helper'
 
 RSpec.describe '/api/billionaires', type: :request do
   path '/api/billionaires' do
@@ -50,15 +51,19 @@ RSpec.describe '/api/billionaires', type: :request do
             description: 'Billgates is an American business magnate, software developer'
           }
         end
+        authorization
         run_test!
       end
 
       response '422', 'invalid request' do
-        let(:billionaire) { { title: 'me' } }
+        let(:billionaire) { { name: 'invalid' } }
+        authorization
         run_test!
       end
 
       response '401', 'unauthorized request' do
+        let(:billionaire) { 'invalid' }
+        let(:Authorization) { 'invalid' }
         run_test!
       end
     end
@@ -81,6 +86,15 @@ RSpec.describe '/api/billionaires', type: :request do
                  created_at: { format: 'date-time' },
                  updated_at: { format: 'date-time' }
                }
+        let(:id) do
+          Billionaire.create(
+            name: 'Bonjour',
+            title: 'Bom dia',
+            price: 1,
+            image: 'Good Afternoon',
+            description: 'Guten Tag'
+          ).id
+        end
         run_test!
       end
     end
@@ -93,10 +107,22 @@ RSpec.describe '/api/billionaires', type: :request do
 
       response '200', 'billionaire deleted' do
         schema type: :string
+        let(:id) do
+          Billionaire.create(
+            name: 'Bonjour',
+            title: 'Bom dia',
+            price: 1,
+            image: 'Good Afternoon',
+            description: 'Guten Tag'
+          ).id
+        end
+        authorization
         run_test!
       end
 
       response '401', 'unauthorized request' do
+        let(:id) { 'invalid' }
+        let(:Authorization) { 'invalid' }
         run_test!
       end
     end

@@ -4,7 +4,7 @@ class Api::BillionairesController < ApplicationController
 
   # GET /billionaires
   def index
-    @billionaires = Billionaire.all
+    @billionaires = Billionaire.order(created_at: :DESC)
 
     render json: @billionaires
   end
@@ -26,15 +26,6 @@ class Api::BillionairesController < ApplicationController
       end
     else
       render json: "\"You're not allowed to create billionaires\"", status: :unauthorized
-    end
-  end
-
-  # PATCH/PUT /billionaires/1
-  def update
-    if @billionaire.update(billionaire_params)
-      render json: @billionaire
-    else
-      render json: @billionaire.errors, status: :unprocessable_entity
     end
   end
 
