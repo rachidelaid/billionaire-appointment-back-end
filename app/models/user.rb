@@ -12,8 +12,8 @@ class User < ApplicationRecord
   validates :password, presence: true
 
   # the authenticate method from devise documentation
-  def self.authenticate(email, password)
-    user = User.find_for_authentication(email:)
+  def self.authenticate(username, password)
+    user = User.find_for_authentication(username:)
     user&.valid_password?(password) ? user : nil
   end
 end

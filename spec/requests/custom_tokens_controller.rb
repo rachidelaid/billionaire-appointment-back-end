@@ -9,7 +9,7 @@ RSpec.describe '/oauth/token', type: :request do
     it 'succeeds' do
       post '/oauth/token', params: {
         grant_type: 'password',
-        email: user.email,
+        username: user.username,
         password: user.password,
         client_id: application.uid,
         client_secret: application.secret

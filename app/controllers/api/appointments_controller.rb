@@ -1,16 +1,12 @@
-class API::AppointmentsController < ApplicationController
+class Api::AppointmentsController < ApplicationController
+  before_action :doorkeeper_authorize!
   before_action :set_appointment, only: %i[show update destroy]
 
   # GET /appointments
   def index
-    @appointments = Appointment.all
+    @appointments = Appointment.where(user_id: current_user.id).order(:date)
 
     render json: @appointments
-  end
-
-  # GET /appointments/1
-  def show
-    render json: @appointment
   end
 
   # POST /appointments
@@ -18,16 +14,7 @@ class API::AppointmentsController < ApplicationController
     @appointment = Appointment.new(appointment_params)
 
     if @appointment.save
-      render json: @appointment, status: :created, location: @appointment
-    else
-      render json: @appointment.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /appointments/1
-  def update
-    if @appointment.update(appointment_params)
-      render json: @appointment
+      render json: @appointment, status: :created
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
@@ -35,7 +22,7 @@ class API::AppointmentsController < ApplicationController
 
   # DELETE /appointments/1
   def destroy
-    @appointment.destroy
+    render json: 'Appointment deleted successfully', status: :ok if @appointment.destroy
   end
 
   private

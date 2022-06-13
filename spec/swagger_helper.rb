@@ -19,13 +19,21 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1'
       },
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: :http,
+            scheme: :bearer
+          }
+        }
+      },
       paths: {},
       servers: [
         {
-          url: 'https://{defaultHost}',
+          url: '{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'www.example.com'
+              default: 'http://localhost:3000'
             }
           }
         }
