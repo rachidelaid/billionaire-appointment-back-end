@@ -8,7 +8,8 @@ Visit the [Front-end repository](https://github.com/rachidelaid/billionaire-appo
 
 ## Preview
 
-Coming soon...
+![App-preview](https://github.com/orozCoding/billionares-pictures/blob/main/gif/app-prev.gif?raw=true)
+(Front-end)
 
 ## Live version
 
@@ -41,6 +42,7 @@ Follow [this link](https://github.com/rachidelaid/billionaire-appointment-back-e
 
 This is an API only app. Use the [Front-end repository](https://github.com/rachidelaid/billionaire-appointment-front-end) for an user interface.
 
+Suggestions:
 Back-end should run in **localhost:3000**
 Front-end should run in **localhost:3001**
 
