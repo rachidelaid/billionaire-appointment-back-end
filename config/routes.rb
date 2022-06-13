@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   # devise_for :users
   
   namespace :api, defaults: { format: 'json' } do
-    resources :users
-    resources :billionaires
-    resources :appointments
+    resources :users, only: :create
+    resources :billionaires, except: :update
+    resources :appointments, except: [:update, :show]
   end
 
   use_doorkeeper do
