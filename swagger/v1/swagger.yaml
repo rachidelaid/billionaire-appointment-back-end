@@ -1,0 +1,163 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+paths:
+  "/api/billionaires/{id}":
+    get:
+      summary: Retrieves a billionaire
+      tags:
+      - Billionaires
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: a billionaire
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  title:
+                    type: string
+                  image:
+                    type: string
+                  price:
+                    type: number
+                    format: float
+                  description:
+                    type: string
+                  created_at:
+                    format: date-time
+                  updated_at:
+                    format: date-time
+    delete:
+      summary: Deletes a billionaire
+      tags:
+      - Billionaires
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: billionaire deleted
+        '401':
+          description: unauthorized request
+  "/api/users":
+    post:
+      summary: Register a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user created
+        '422':
+          description: invalid request
+        '403':
+          description: forbidden request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                username:
+                  type: string
+                email:
+                  type: string
+                name:
+                  type: string
+                role:
+                  type: string
+                password:
+                  type: string
+              required:
+              - username
+              - email
+              - name
+              - password
+  "/oauth/token":
+    post:
+      summary: Login a user or refresh a token
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user logedin
+        '400':
+          description: bad request
+        '401':
+          description: unauthorized request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                grant_type:
+                  type: string
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+              - username
+              - password
+              - grant_type
+              - client_id
+              - client_secret
+  "/oauth/revoke":
+    post:
+      summary: Logout a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: user logedout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                token:
+                  type: string
+              required:
+              - token
+              - client_id
+              - client_secret
+servers:
+- url: "{defaultHost}"
+  variables:
+    defaultHost:
+      default: http://localhost:3000
