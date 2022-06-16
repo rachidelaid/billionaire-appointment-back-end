@@ -8,7 +8,9 @@ Visit the [Front-end repository](https://github.com/rachidelaid/billionaire-appo
 
 ## Kanban board
 
-[Visit kanban board](https://github.com/rachidelaid/billionaire-appointment-back-end/projects/1)
+We are a team of four.
+
+[Visit our kanban board](https://github.com/rachidelaid/billionaire-appointment-back-end/projects/1)
 
 ## Preview
 
