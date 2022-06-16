@@ -6,6 +6,10 @@ This is the Ruby on Rails back-end repository for an appointments web-app. We us
 
 Visit the [Front-end repository](https://github.com/rachidelaid/billionaire-appointment-front-end) for more information.
 
+## Kanban board
+
+[Visit kanban board](https://github.com/rachidelaid/billionaire-appointment-back-end/projects/1)
+
 ## Preview
 
 ![App-preview](https://github.com/orozCoding/billionares-pictures/blob/main/gif/app-prev.gif?raw=true)
