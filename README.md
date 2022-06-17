@@ -12,6 +12,8 @@ We are a team of four.
 
 [Visit our kanban board](https://github.com/rachidelaid/billionaire-appointment-back-end/projects/1)
 
+[Link to screenshot of initial state](https://user-images.githubusercontent.com/42470159/171405547-f53281ec-4cdb-4f73-bb58-a72740bb1f47.png)
+
 ## Preview
 
 ![App-preview](https://github.com/orozCoding/billionares-pictures/blob/main/gif/app-prev.gif?raw=true)
